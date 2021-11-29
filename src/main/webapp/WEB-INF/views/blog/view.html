@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Blog</title>
+</head>
+<body>
+<h1>Views Blog</h1>
+<p>
+    <a href="/blog">Back To Blog List</a>
+</p>
+<table th:object="${blog}">
+    <tr>
+        <td>Title</td>
+        <td><input type="text" th:field="*{title}"></td>
+    </tr>
+    <tr>
+        <td>Content</td>
+        <td><input type="text" th:field="*{content}"></td>
+    </tr>
+    <tr>
+        <td>Author</td>
+        <td><input type="text" th:field="*{author}"></td>
+    </tr>
+</table>
+</body>
+</html>
