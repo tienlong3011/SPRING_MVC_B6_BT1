@@ -9,18 +9,27 @@
 <p>
     <a href="/blog">Back To Blog List</a>
 </p>
-<table th:object="${blog}">
+<table th:object="${blog}" enctype="multipart/form-data">
     <tr>
         <td>Title</td>
-        <td><input type="text" th:field="*{title}"></td>
+        <td th:text="${blog.get().title}"></td>
     </tr>
     <tr>
         <td>Content</td>
-        <td><input type="text" th:field="*{content}"></td>
+        <td th:text="${blog.get().content}"></td>
     </tr>
     <tr>
         <td>Author</td>
-        <td><input type="text" th:field="*{author}"></td>
+        <td th:text="${blog.get().author}"></td>
+    </tr>
+    <tr>
+        <td>Category:</td>
+        <td th:text="${blog.get().category.getName()}"></td>
+    </tr>
+
+    <tr>
+        <td>Image:</td>
+        <td><img width="100" height="100" th:src="@{'/image/' + ${blog.get().getImage()}}" alt=""></td>
     </tr>
 </table>
 </body>

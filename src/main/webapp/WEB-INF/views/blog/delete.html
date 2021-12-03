@@ -10,20 +10,28 @@
 <p>
     <a href="/blog">Back To Blog List</a>
 </p>
-<form th:action="@{/blog/delete}" th:object="${blog}" method="post">
+<form th:action="@{/blog/delete}" th:object="${blog}" method="post" enctype="multipart/form-data">
     <input th:type="hidden" name="id" th:field="*{id}">
     <table>
         <tr>
             <td>Title:</td>
-            <td th:text="${blog.title}"></td>
+            <td th:text="${blog.get().title}"></td>
         </tr>
         <tr>
             <td>Content:</td>
-            <td th:text="${blog.content}"></td>
+            <td th:text="${blog.get().content}"></td>
         </tr>
         <tr>
             <td>Author:</td>
-            <td th:text="${blog.author}"></td>
+            <td th:text="${blog.get().author}"></td>
+        </tr>
+        <tr>
+            <td>Category:</td>
+            <td th:text="${blog.get().category.getName()}"></td>
+        </tr>
+        <tr>
+            <td>Image:</td>
+            <td><img width="100" height="100" th:src="@{'/image/' + ${blog.get().getImage()}}" alt=""></td>
         </tr>
         <tr>
             <td></td>

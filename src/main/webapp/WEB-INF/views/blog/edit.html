@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit Blog</title>
@@ -12,19 +12,50 @@
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
-<form th:action="@{/blog/edit}" th:object="${blog}" method="post">
+<form th:action="@{/blog/edit}" th:object="${blogForm}" method="post" enctype="multipart/form-data">
     <input th:type="hidden" name="id" th:field="*{id}">
     <table>
         <tr>
             <td>Title</td>
-            <td><input type="text" th:field="*{title}"></td>
+            <td><label>
+                <input type="text" th:field="*{title}">
+            </label></td>
         </tr>
         <tr>
             <td>Content</td>
-            <td><input type="text" th:field="*{content}"></td>
-        </tr><tr>
+            <td>
+                <label>
+                    <input type="text" th:field="*{content}">
+                </label>
+            </td>
+        </tr>
+        <tr>
             <td>Author</td>
-            <td><input type="text" th:field="*{author}"></td>
+            <td>
+                <label>
+                    <input type="text" th:field="*{author}">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td>
+                <label>
+                    <select name="category">
+                        <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                                th:selected="(${blogForm.category}) and (${c.id} == *{category.id})">
+                        </option>
+                    </select>
+                </label>
+            </td>
+
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td>
+                <img width="100" height="100" th:src="@{'/image/' + ${blogForm.image.getOriginalFilename()}}" alt="">
+                <input type="file" th:field="*{image}">
+            </td>
         </tr>
         <tr>
             <td></td>

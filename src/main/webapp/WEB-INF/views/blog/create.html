@@ -12,25 +12,45 @@
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
-<form th:action="@{/blog/create}" th:object="${blog}" method="post">
+<form th:action="@{/blog/create}" th:object="${blogForm}" method="post" enctype="multipart/form-data">
     <table>
         <tr>
             <th>Title</th>
             <td>
-                <input type="text" th:field="*{title}">
+                <label>
+                    <input type="text" th:field="*{title}">
+                </label>
             </td>
         </tr>
         <tr>
             <th>Content</th>
             <td>
-                <input type="text" th:field="*{content}">
+                <label>
+                    <input type="text" th:field="*{content}">
+                </label>
             </td>
         </tr>
         <tr>
             <th>Author</th>
             <td>
-                <input type="text" th:field="*{author}">
+                <label>
+                    <input type="text" th:field="*{author}">
+                </label>
             </td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>
+                <label>
+                    <select th:field="*{category}">
+                        <option th:each="cate : ${categories}" th:value="${cate.id}" th:text="${cate.name}"></option>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td><input type="file" th:field="*{image}"></td>
         </tr>
         <tr>
             <td></td>
