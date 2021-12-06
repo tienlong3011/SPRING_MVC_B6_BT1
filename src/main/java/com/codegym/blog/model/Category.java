@@ -14,8 +14,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-
+    //fetch = FetchType.EAGER ( tìm kiếm kèm theo được thằng category)
+    // cascade = CascadeType.PERSIST ( xóa thằng cha thì thằng con tự null trường đấy )
+    //mappedBy = "category" (không thêm bảng phụ)
+//, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "category"
     @OneToMany(targetEntity = Blog.class)
     @JsonBackReference
     private List<Blog>blogs;
