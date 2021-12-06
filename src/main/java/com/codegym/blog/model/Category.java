@@ -1,5 +1,9 @@
 package com.codegym.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +17,7 @@ public class Category {
 
 
     @OneToMany(targetEntity = Blog.class)
+    @JsonBackReference
     private List<Blog>blogs;
 
     public Category() {
