@@ -52,6 +52,7 @@ public class BlogRestController {
         blogService.save(blog);
         return new ResponseEntity<>(blog,HttpStatus.OK);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Blog> deleteCustomer(@PathVariable Long id) {
         Optional<Blog> customerOptional = blogService.findById(id);

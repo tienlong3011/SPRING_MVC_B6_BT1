@@ -22,6 +22,7 @@ public class Blog {
     private Category category;
 
     public Blog() {
+
     }
 
     public Blog(String title, String content, String author, String image, Category category) {
