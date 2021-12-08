@@ -31,4 +31,11 @@ public class BlogService implements IBlogService {
     public void remove(Long id) {
         blogRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Blog> findByTitle(String title) {
+        return blogRepository.findByTitle(title);
+    }
+
+
 }

@@ -35,6 +35,7 @@
             },
             type: "POST",
             data: JSON.stringify(newBlog),
+            enctype: 'multipart/form-data',
             //ten Api
             url: "/api/blog",
             success: successHandler
@@ -50,8 +51,8 @@
                         <td >${blog.author}</td>
                         <td><img src= "/image/${blog.image}"></td>
                         <td >${blog.category?.name}</td>` +
-            `<td><button value="${blog.id}" onclick="deleteBlog(this)">Xoa</button></td>`+
-            ` <td><button th:value="${blog.id}" onclick="openForm(this)">Edit</button></td>`
+            `<td><button value="${blog.id}" onclick="deleteBlog(this)">Xoa</button></td>` +
+            ` <td><button value="${blog.id}" onclick="openForm(this)">Edit</button></td>`
 
     }
 
@@ -78,6 +79,7 @@
         })
     }
 
+    //delete
     function deleteBlog(a) {
         let id = a.getAttribute("value");
         $.ajax({
@@ -88,6 +90,7 @@
         event.preventDefault();
     }
 
+    //hiển thị ảnh khi add
     function ImagesFileAsURL() {
         let fileSelected = document.getElementById('images').files;
         if (fileSelected.length > 0) {
@@ -111,7 +114,7 @@
         $.ajax({
             type: "GET",
             url: "/api/blog/" + id,
-            success: function (blog){
+            success: function (blog) {
                 $('#idEdit').val(blog.id);
                 $('#titleEdit').val(blog.title);
                 $('#contentEdit').val(blog.content);
@@ -137,7 +140,7 @@
         let image = $('#imagesEdit').val();
         let category = $('#categoryEdit').val();
         let newBlog = {
-            id : id,
+            id: id,
             title: title,
             content: content,
             author: author,
@@ -160,6 +163,18 @@
         })
         //chặn sự kiện mặc định của thẻ
         event.preventDefault();
+    }
+
+    //search
+    function FormSearchTitle() {
+        let title = $('#titles').val();
+        $.ajax({
+            type: "GET",
+            url: "/api/blog/title/" + title,
+            success: function (blog) {
+                alert("Tiêu đề: " + blog.title + "Tác giả: " + blog.author)
+            }
+        })
     }
 </script>
 <body>
@@ -184,6 +199,13 @@
 <!--</table>-->
 
 <!--create-->
+<h1>Tìm Kiếm</h1>
+<form id="search-title">
+    <input type="text" name="titles" id="titles">
+    <input type="button" id="titleSearch" onclick="FormSearchTitle()" value="Search"
+           placeholder="Tìm kiếm theo tiêu đề">
+</form>
+
 <h1>Create Blog</h1>
 <form id="add-blog">
     <table>
@@ -249,45 +271,45 @@
 </table>
 
 <!--edit-->
-    <form id="edit-blog" style="display: none">
-        <h1>Edit Blog</h1>
-        <table>
-            <input type="hidden" name="idEdit" id="idEdit">
-            <tr>
-                <td>Title:</td>
-                <td><input type="text" id="titleEdit" placeholder="title"></td>
-            </tr>
-            <tr>
-                <td>Content:</td>
-                <td><input type="text" id="contentEdit" placeholder="content"></td>
-            </tr>
-            <tr>
-                <td>Author:</td>
-                <td><input type="text" id="authorEdit" placeholder="author"></td>
-            </tr>
-            <tr>
-                <td>Image:</td>
-                <td><input type="file" id="imagesEdit" name="images" placeholder="image" onchange="ImagesFileAsURL()">
-                </td>
-                <td id="displayImgEdit"></td>
-            </tr>
-            <tr>
-                <td>Category:</td>
-                <td>
-                    <select id="categoryEdit">
-                        <option th:each="cate : ${categories}" th:value="${cate.id}" th:text="${cate.name}"></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="edit" onclick="editBlog()"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <button type="button"  onclick="closeForm()">Close</button>
-            </tr>
-        </table>
-    </form>
+<form id="edit-blog" style="display: none">
+    <h1>Edit Blog</h1>
+    <table>
+        <input type="hidden" name="idEdit" id="idEdit">
+        <tr>
+            <td>Title:</td>
+            <td><input type="text" id="titleEdit" placeholder="title"></td>
+        </tr>
+        <tr>
+            <td>Content:</td>
+            <td><input type="text" id="contentEdit" placeholder="content"></td>
+        </tr>
+        <tr>
+            <td>Author:</td>
+            <td><input type="text" id="authorEdit" placeholder="author"></td>
+        </tr>
+        <tr>
+            <td>Image:</td>
+            <td><input type="file" id="imagesEdit" name="images" placeholder="image" onchange="ImagesFileAsURL()">
+            </td>
+            <td id="displayImgEdit"></td>
+        </tr>
+        <tr>
+            <td>Category:</td>
+            <td>
+                <select id="categoryEdit">
+                    <option th:each="cate : ${categories}" th:value="${cate.id}" th:text="${cate.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="edit" onclick="editBlog()"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <button type="button" onclick="closeForm()">Close</button>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

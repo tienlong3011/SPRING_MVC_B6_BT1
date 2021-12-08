@@ -62,4 +62,14 @@ public class BlogRestController {
         blogService.remove(id);
         return new ResponseEntity<>(customerOptional.get(), HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/title/{title}")
+    public ResponseEntity<Blog>findByTitle(@PathVariable String title){
+        Optional<Blog> blogOptional = blogService.findByTitle(title);
+        if(!blogOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
+            return new ResponseEntity<>(blogOptional.get(),HttpStatus.OK);
+        }
+    }
 }
