@@ -11,5 +11,5 @@ public interface IGeneralService<T> {
 
     void remove(Long id);
 
-    Optional<T> findByTitle(String title);
+    Iterable<T> findByTitle(String title);
 }

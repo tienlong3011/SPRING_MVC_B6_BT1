@@ -12,8 +12,8 @@ import java.util.Optional;
 
 @Repository
 public interface IBlogRepository extends JpaRepository<Blog,Long> {
-    @Query("FROM Blog b WHERE b.title like :title")
-    Optional<Blog> findByTitle(@Param("title") String title);
+//    @Query("FROM Blog b WHERE b.title like :title")
+//    Optional<Blog> findByTitle(@Param("title") String title);
 
-    Optional<Blog> findBlogByTitleContaining(String title);
+    Iterable<Blog> findAllByTitle(String title);
 }

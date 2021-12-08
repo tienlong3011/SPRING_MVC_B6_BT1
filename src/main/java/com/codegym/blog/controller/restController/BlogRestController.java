@@ -64,12 +64,12 @@ public class BlogRestController {
     }
 
     @GetMapping("/title/{title}")
-    public ResponseEntity<Blog>findByTitle(@PathVariable String title){
-        Optional<Blog> blogOptional = blogService.findByTitle(title);
-        if(!blogOptional.isPresent()){
+    public ResponseEntity<Iterable<Blog>>findByTitle(@PathVariable String title){
+        List<Blog> blogIterable = (List<Blog>) blogService.findByTitle(title);
+        if(blogIterable.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else {
-            return new ResponseEntity<>(blogOptional.get(),HttpStatus.OK);
+            return new ResponseEntity<>(blogIterable,HttpStatus.OK);
         }
     }
 }

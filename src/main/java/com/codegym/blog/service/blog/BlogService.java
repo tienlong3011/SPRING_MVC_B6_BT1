@@ -33,8 +33,8 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public Optional<Blog> findByTitle(String title) {
-        return blogRepository.findByTitle(title);
+    public Iterable<Blog> findByTitle(String title) {
+        return blogRepository.findAllByTitle(title);
     }
 
 

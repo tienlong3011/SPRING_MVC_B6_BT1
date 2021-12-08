@@ -32,8 +32,9 @@ public class CategoryService implements ICategoryService{
         categoryRepository.deleteById(id);
     }
 
+
     @Override
-    public Optional<Category> findByTitle(String title) {
-        return Optional.empty();
+    public Iterable<Category> findByTitle(String title) {
+        return null;
     }
 }
